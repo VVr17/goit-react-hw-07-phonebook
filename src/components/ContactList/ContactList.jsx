@@ -9,8 +9,6 @@ export const ContactList = () => {
   const filter = useSelector(getFilter);
   const filteredContacts = getFilteredContacts(contacts, filter);
 
-  console.log('contactlist', filteredContacts);
-
   return (
     <Contacts>
       {filteredContacts.map(({ name, phone, id }) => (

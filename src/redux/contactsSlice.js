@@ -26,31 +26,28 @@ const contactsSlice = createSlice({
       state.isLoading = false;
       state.error = null;
       state.items = payload;
-      console.log('fetch', payload);
     },
     [fetchContacts.rejected]: handleRejected,
-  },
 
-  // add contact to Api
-  [addContact.pending]: handlePending,
-  [addContact.fulfilled](state, { payload }) {
-    console.log('add-cont', payload);
-    state.isLoading = false;
-    state.error = null;
-    state.items.push(payload);
-  },
-  [addContact.rejected]: handleRejected,
+    // add contact to Api
+    [addContact.pending]: handlePending,
+    [addContact.fulfilled](state, { payload }) {
+      state.isLoading = false;
+      state.error = null;
+      state.items.push(payload);
+    },
+    [addContact.rejected]: handleRejected,
 
-  // delete contact from Api
-  [deleteContact.pending]: handlePending,
-  [deleteContact.fulfilled](state, { payload }) {
-    console.log('delete-cont', payload);
-    state.isLoading = false;
-    state.error = null;
-    const index = state.items.findIndex(({ id }) => id === payload.id);
-    state.items.splice(index, 1);
+    // delete contact from Api
+    [deleteContact.pending]: handlePending,
+    [deleteContact.fulfilled](state, { payload }) {
+      state.isLoading = false;
+      state.error = null;
+      const index = state.items.findIndex(({ id }) => id === payload.id);
+      state.items.splice(index, 1);
+    },
+    [deleteContact.rejected]: handleRejected,
   },
-  [deleteContact.rejected]: handleRejected,
 });
 
 export const contactsReducer = contactsSlice.reducer;

@@ -31,15 +31,14 @@ export const App = () => {
         <NewContactForm />
       </Section>
       <Section title="Contacts">
-        <Loader isLoading={isLoading} />
-        {error && <p>{error}</p>}
-
         {contacts.length > 0 && <Filter />}
+        <Loader isLoading={isLoading} />
         {filteredContacts.length > 0 ? (
           <ContactList />
         ) : (
           <Text>There are no contacts</Text>
         )}
+        {error && <p>{error}</p>}
       </Section>
       <ToastContainer autoClose={3000} theme="colored" />
     </Box>
