@@ -3,14 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form'; // Forms
 import { yupResolver } from '@hookform/resolvers/yup'; // for React-hook-form work with Yup
 import * as yup from 'yup'; // Form validation
-import { addContact } from 'redux/contactsSlice';
 import { Button } from 'components/Button/Button';
 import { getContacts } from 'redux/selectors';
 import { Input } from './Input/Input';
+import { addContact } from 'redux/operations';
 
 const INITIAL_STATE = {
   name: '',
-  number: '',
+  phone: '',
 };
 
 const validationSchema = yup.object().shape({
@@ -23,7 +23,7 @@ const validationSchema = yup.object().shape({
       "Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
     )
     .required('Name is required'),
-  number: yup
+  phone: yup
     .string()
     .matches(
       /\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/,
@@ -74,10 +74,10 @@ export const NewContactForm = () => {
         error={errors.name}
       />
       <Input
-        name="number"
+        name="phone"
         placeholder="Phone number"
         register={register}
-        error={errors.number}
+        error={errors.phone}
       />
       <Button type="submit" name="primary">
         Add Contact

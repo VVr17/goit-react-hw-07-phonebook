@@ -4,9 +4,9 @@ import { useDispatch } from 'react-redux';
 import { Box } from 'components/Box/Box';
 import { Button } from '../Button/Button';
 import { ContactStyled } from './Contact.styled';
-import { deleteContact } from 'redux/contactsSlice';
+import { deleteContact } from 'redux/operations';
 
-export const Contact = ({ name, number, id }) => {
+export const Contact = ({ name, phone, id }) => {
   const dispatch = useDispatch();
 
   function onDelete(id, name) {
@@ -18,7 +18,7 @@ export const Contact = ({ name, number, id }) => {
     <ContactStyled>
       <Box display={['block', 'block', 'flex']}>
         <p>{name}:</p>
-        <p>{number}</p>
+        <p>{phone}</p>
       </Box>
       <Button onClick={() => onDelete(id, name)}>Delete</Button>
     </ContactStyled>
@@ -27,6 +27,6 @@ export const Contact = ({ name, number, id }) => {
 
 Contact.propTypes = {
   name: PropTypes.string.isRequired,
-  number: PropTypes.string.isRequired,
+  phone: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
 };

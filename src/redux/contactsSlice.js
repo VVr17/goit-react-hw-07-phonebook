@@ -1,44 +1,56 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { nanoid } from 'nanoid';
-import { persistReducer } from 'redux-persist'; // to connect Redux State with LocalStorage
-import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
-import { LOCAL_STORAGE_KEY } from './constants';
+import { addContact, deleteContact, fetchContacts } from './operations';
+
+const handlePending = state => {
+  state.isLoading = true;
+};
+
+const handleRejected = (state, { payload }) => {
+  state.error = payload;
+  state.isLoading = false;
+};
 
 const contactsInitialState = [];
 
 const contactsSlice = createSlice({
   name: 'contacts',
-  initialState: { contacts: contactsInitialState },
-  reducers: {
-    addContact: {
-      reducer({ contacts }, { payload }) {
-        contacts.push(payload);
-      },
-      prepare({ name, number }) {
-        return {
-          payload: {
-            name,
-            number,
-            id: nanoid().slice(0, 8),
-          },
-        };
-      },
-    },
-    deleteContact({ contacts }, { payload }) {
-      const index = contacts.findIndex(({ id }) => id === payload);
-      contacts.splice(index, 1);
-    },
+  initialState: {
+    items: contactsInitialState,
+    isLoading: false,
+    error: null,
   },
+  extraReducers: {
+    // first fetch contacts from API
+    [fetchContacts.pending]: handlePending,
+    [fetchContacts.fulfilled](state, { payload }) {
+      state.isLoading = false;
+      state.error = null;
+      state.items = payload;
+      console.log('fetch', payload);
+    },
+    [fetchContacts.rejected]: handleRejected,
+  },
+
+  // add contact to Api
+  [addContact.pending]: handlePending,
+  [addContact.fulfilled](state, { payload }) {
+    console.log('add-cont', payload);
+    state.isLoading = false;
+    state.error = null;
+    state.items.push(payload);
+  },
+  [addContact.rejected]: handleRejected,
+
+  // delete contact from Api
+  [deleteContact.pending]: handlePending,
+  [deleteContact.fulfilled](state, { payload }) {
+    console.log('delete-cont', payload);
+    state.isLoading = false;
+    state.error = null;
+    const index = state.items.findIndex(({ id }) => id === payload.id);
+    state.items.splice(index, 1);
+  },
+  [deleteContact.rejected]: handleRejected,
 });
 
-const persistConfig = {
-  key: LOCAL_STORAGE_KEY.contacts,
-  storage,
-};
-const contactsReducer = contactsSlice.reducer;
-
-export const { addContact, deleteContact } = contactsSlice.actions;
-export const persistedContactsReducer = persistReducer(
-  persistConfig,
-  contactsReducer
-);
+export const contactsReducer = contactsSlice.reducer;

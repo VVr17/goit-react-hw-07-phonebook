@@ -9,11 +9,13 @@ export const ContactList = () => {
   const filter = useSelector(getFilter);
   const filteredContacts = getFilteredContacts(contacts, filter);
 
+  console.log('contactlist', filteredContacts);
+
   return (
     <Contacts>
-      {filteredContacts.map(({ name, number, id }) => (
+      {filteredContacts.map(({ name, phone, id }) => (
         <li key={id}>
-          <Contact name={name} number={number} id={id} />
+          <Contact name={name} phone={phone} id={id} />
         </li>
       ))}
     </Contacts>
