@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { Box } from 'components/Box/Box';
-import { Button } from '../Button/Button';
+import { Button } from 'components/Button/Button';
 import { ContactStyled } from './Contact.styled';
 import { deleteContact } from 'redux/operations';
 

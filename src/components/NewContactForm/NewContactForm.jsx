@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form'; // Forms
 import { yupResolver } from '@hookform/resolvers/yup'; // for React-hook-form work with Yup
 import * as yup from 'yup'; // Form validation
+import { addContact } from 'redux/operations';
 import { Button } from 'components/Button/Button';
 import { getContacts } from 'redux/selectors';
 import { Input } from './Input/Input';
-import { addContact } from 'redux/operations';
 
 const INITIAL_STATE = {
   name: '',
@@ -50,12 +50,12 @@ export const NewContactForm = () => {
     const { name } = data;
 
     if (isInPhoneBook(name)) {
-      toast.warn(`${name.toUpperCase()} is already in CONTACTS`);
+      toast.warn(`${name?.toUpperCase()} is already in CONTACTS`);
       reset();
       return;
     }
     dispatch(addContact(data));
-    toast.success(`${name.toUpperCase()} successfully added to CONTACTS`);
+    toast.success(`${name?.toUpperCase()} successfully added to CONTACTS`);
     reset();
   };
 

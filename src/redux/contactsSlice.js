@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { addContact, deleteContact, fetchContacts } from './operations';
 
+// Using Immer for immutable state changes
 const handlePending = state => {
   state.isLoading = true;
 };

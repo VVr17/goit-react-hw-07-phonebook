@@ -16,7 +16,7 @@ export const Input = ({
         placeholder={placeholder}
         {...register(name, { required: true })}
         aria-invalid={error ? 'true' : 'false'}
-        border={error ? 'red' : 'btnColor'}
+        border={error ? 'red' : 'inputText'}
         backgroundColor={error ? 'bgErrorColor' : ''}
       />
       {error && <ErrorText>{error?.message}</ErrorText>}

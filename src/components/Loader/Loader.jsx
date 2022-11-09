@@ -1,6 +1,6 @@
-import { theme } from 'constants/theme';
-import PropTypes from 'prop-types';
 import BarLoader from 'react-spinners/BarLoader';
+import PropTypes from 'prop-types';
+import { theme } from 'constants/theme';
 
 const override = {
   display: 'block',

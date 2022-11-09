@@ -20,7 +20,7 @@ export const InputStyled = styled.input`
   outline: transparent;
   background-color: ${p =>
     p.theme.colors[p.backgroundColor] || p.theme.colors.white};
-  border: ${p => p.theme.borders.normal} ${p => p.theme.colors.inputText};
+  border: ${p => p.theme.borders.normal} ${p => p.theme.colors[p.border]};
   border-radius: ${p => p.theme.space[1]}px;
   transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 
