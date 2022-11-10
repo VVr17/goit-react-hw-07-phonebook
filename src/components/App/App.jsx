@@ -4,8 +4,12 @@ import { ToastContainer } from 'react-toastify';
 import { Box } from 'components/Box/Box';
 import { ContactList } from 'components/ContactList/ContactList';
 import { fetchContacts } from 'redux/operations';
-import { getContacts, getError, getFilter, getLoading } from 'redux/selectors';
-import { getFilteredContacts } from 'helpers/getFilteredContacts';
+import {
+  selectContacts,
+  selectError,
+  selectLoading,
+  selectFilteredContacts,
+} from 'redux/selectors';
 import { Filter } from 'components/Filter/Filter';
 import { Loader } from 'components/Loader/Loader';
 import { NewContactForm } from 'components/NewContactForm/NewContactForm';
@@ -13,11 +17,10 @@ import { Section } from 'components/Section/Section';
 import { Text, Title } from './App.styled';
 
 export const App = () => {
-  const contacts = useSelector(getContacts);
-  const isLoading = useSelector(getLoading);
-  const error = useSelector(getError);
-  const filter = useSelector(getFilter);
-  const filteredContacts = getFilteredContacts(contacts, filter);
+  const contacts = useSelector(selectContacts);
+  const filteredContacts = useSelector(selectFilteredContacts);
+  const isLoading = useSelector(selectLoading);
+  const error = useSelector(selectError);
   const dispatch = useDispatch();
 
   useEffect(() => {

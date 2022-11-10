@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup'; // for React-hook-form wo
 import * as yup from 'yup'; // Form validation
 import { addContact } from 'redux/operations';
 import { Button } from 'components/Button/Button';
-import { getContacts } from 'redux/selectors';
+import { selectContacts } from 'redux/selectors';
 import { Input } from './Input/Input';
 
 const INITIAL_STATE = {
@@ -33,7 +33,7 @@ const validationSchema = yup.object().shape({
 });
 
 export const NewContactForm = () => {
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
 
   const {
